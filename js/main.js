@@ -32,7 +32,7 @@ const app = () => {
 	timeSelectBtn.forEach(btn => {
 		btn.addEventListener('click', function () {
 			fakeDuration = this.getAttribute('data-time');
-			timeDisplay.textContent = `${Math.floor(fakeDuration / 60)}:${Math.floor(fakeDuration % 60)}`
+			timeDisplay.textContent = `${addZero(Math.floor(fakeDuration / 60))}:${addZero(Math.floor(fakeDuration % 60))}`
 		});
 	});
 
