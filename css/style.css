@@ -5,7 +5,7 @@
           box-sizing: border-box;
 }
 
-.app {
+.app_wrapper {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -118,5 +118,14 @@ video {
 
 .sound_picker button:focus:nth-child(2) {
   background: lightcoral;
+}
+
+.play_stop {
+  background: none;
+  border: none;
+}
+
+.play_stop:active, .play_stop:focus {
+  outline: none;
 }
 /*# sourceMappingURL=style.css.map */

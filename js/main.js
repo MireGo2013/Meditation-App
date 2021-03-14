@@ -1,4 +1,4 @@
-const song = document.querySelector('.song');
+const song = document.getElementById('song');
 const play = document.querySelector('.play');
 const outline = document.querySelector('.moving_outline circle');
 const outlineLength = outline.getTotalLength();
@@ -57,7 +57,6 @@ const app = () => {
 		let minutes = Math.floor(elapsedTime / 60);
 		let progress = outlineLength - (currentTime / fakeDuration) * outlineLength;
 		outline.style.strokeDashoffset = progress;
-		console.log(outlineLength)
 		timeDisplay.textContent = `${addZero(minutes)}:${addZero(seconds)}`;
 		if (currentTime >= fakeDuration) {
 			song.pause();
@@ -66,8 +65,7 @@ const app = () => {
 			video.pause();
 		}
 	};
-
-
+	
 };
 //Add zero to time < 10
 function addZero(n) {

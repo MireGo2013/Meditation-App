@@ -4,7 +4,7 @@
 	box-sizing: border-box;
 }
 
-.app {
+.app_wrapper {
 	display: flex;
 	justify-content: space-evenly;
 	align-items: center;
@@ -94,5 +94,14 @@ video {
 	}
 	&:focus:nth-child(2) {
 		background: lightcoral;
+	}
+}
+
+.play_stop {
+	background: none;
+	border: none;
+	&:active,
+	&:focus {
+		outline: none;
 	}
 }
