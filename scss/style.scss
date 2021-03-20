@@ -46,7 +46,7 @@
 	color: green;
 }
 
-.time_display {
+#time_display {
 	position: absolute;
 	bottom: 10%;
 	transform: translateY(-10%);
@@ -103,5 +103,8 @@ video {
 	&:active,
 	&:focus {
 		outline: none;
+	}
+	&:hover {
+		cursor: pointer;
 	}
 }
