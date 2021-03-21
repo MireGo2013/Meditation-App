@@ -19,21 +19,26 @@ const app = () => {
 	});
 
 	// Make btn for style song and video
-	sounds.addEventListener('click', function (e) {
+	function changeStyleSong(e) {
 		if (e.target.closest('img')) {
 			song.src = e.target.getAttribute('data-sound');
 			video.src = e.target.getAttribute('data-video');
 			checkPlaying(song);
 		}
-	})
+	}
+
+	sounds.addEventListener('click', changeStyleSong)
 
 	// Make btn for long time song 
-	timeSelectBtn.addEventListener('click', function (e) {
+
+	function setLongTimeSongBtn(e) {
 		if (e.target.closest('button')) {
 			fakeDuration = e.target.getAttribute('data-time');
 			timeDisplay.textContent = `${addZero(Math.floor(fakeDuration / 60))}:${addZero(Math.floor(fakeDuration % 60))}`;
 		}
-	})
+	}
+
+	timeSelectBtn.addEventListener('click', setLongTimeSongBtn)
 
 	// Make play btm
 	const checkPlaying = (song) => {
