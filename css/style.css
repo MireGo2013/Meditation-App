@@ -18,6 +18,23 @@
   height: 100vh;
 }
 
+.video_conteiner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.video_conteiner video {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
 .time_select,
 .sound_picker,
 .player_conteimner {
@@ -74,16 +91,8 @@
   font-size: 35px;
 }
 
-video {
-  position: fixed;
-  top: 0%;
-  left: 0%;
-  width: 100%;
-  z-index: -1;
-}
-
-.time_select button,
-.sound_picker button {
+.time_btn,
+.sound_btn {
   background: none;
   width: 30%;
   height: 10%;
@@ -104,7 +113,7 @@ video {
   border: 2px solid black;
 }
 
-.sound_picker button {
+.sound_btn {
   border: none;
   height: 60px;
   width: 60px;
@@ -112,11 +121,11 @@ video {
   border-radius: 50%;
 }
 
-.sound_picker button:focus:nth-child(1) {
+.sound_btn:focus:nth-child(1) {
   background: cadetblue;
 }
 
-.sound_picker button:focus:nth-child(2) {
+.sound_btn:focus:nth-child(2) {
   background: lightcoral;
 }
 

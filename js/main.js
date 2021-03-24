@@ -12,18 +12,18 @@ let fakeDuration = 600;
 outline.style.strokeDasharray = outlineLength;
 outline.style.strokeDashoffset = outlineLength;
 
-const app = () => {
+function app () {
 
 	play.addEventListener('click', () => {
-		checkPlaying(song);
+		checkPlaying();
 	});
 
 	// Make btn for style song and video
 	function changeStyleSong(e) {
-		if (e.target.closest('img')) {
-			song.src = e.target.getAttribute('data-sound');
-			video.src = e.target.getAttribute('data-video');
-			checkPlaying(song);
+		if (e.target.closest('.sound_btn')) {
+			song.src = e.target.parentNode.getAttribute('data-sound');
+			video.src = e.target.parentNode.getAttribute('data-video');
+			checkPlaying();
 		}
 	}
 
@@ -34,47 +34,62 @@ const app = () => {
 	function setLongTimeSongBtn(e) {
 		if (e.target.closest('button')) {
 			fakeDuration = e.target.getAttribute('data-time');
-			timeDisplay.textContent = `${addZero(Math.floor(fakeDuration / 60))}:${addZero(Math.floor(fakeDuration % 60))}`;
+			pauseVideo()
+			song.currentTime = 0;
+			timeDisplay.textContent = getTimeString(0);
 		}
 	}
 
 	timeSelectBtn.addEventListener('click', setLongTimeSongBtn)
 
 	// Make play btm
-	const checkPlaying = (song) => {
+	function checkPlaying() {
 		if (song.paused) {
-			song.play();
-			video.play();
-			play.src = "./svg/pause.svg";
+			playVideo()
 		} else {
-			song.pause();
-			video.pause();
-			play.src = './svg/play.svg';
+			pauseVideo()
 		};
 	};
+
+	function playVideo() {
+		song.play();
+		video.play();
+		play.src = "./svg/pause.svg";
+	}
+
+	function pauseVideo() {
+		song.pause();
+		video.pause();
+		play.src = "./svg/play.svg";
+	}
 
 	// Make timer for song and svg 
 	song.ontimeupdate = () => {
 		let currentTime = song.currentTime;
+		let progress = getProgress(currentTime);
+		outline.style.strokeDashoffset = progress;
+		timeDisplay.textContent = getTimeString(currentTime)
+		if (currentTime >= fakeDuration) {
+			song.currentTime = 0;
+			pauseVideo()
+		}
+	};
+
+	function getTimeString(currentTime) {
 		let elapsedTime = fakeDuration - currentTime;
 		let seconds = Math.floor(elapsedTime % 60);
 		let minutes = Math.floor(elapsedTime / 60);
-		let progress = outlineLength - (currentTime / fakeDuration) * outlineLength;
-		outline.style.strokeDashoffset = progress;
-		timeDisplay.textContent = `${addZero(minutes)}:${addZero(seconds)}`;
-		if (currentTime >= fakeDuration) {
-			song.pause();
-			song.currentTime = 0;
-			play.src = './svg/play.svg';
-			video.pause();
-		}
-	};
-};
+		return `${addZero(minutes)}:${addZero(seconds)}`
+	}
 
-//Add zero to time < 10
-function addZero(n) {
-	return (parseInt(n, 10) < 10 ? '0' : '') + n;
-}
+	function getProgress(currentTime) {
+		return outlineLength - (currentTime / fakeDuration) * outlineLength;
+	}
+
+	function addZero(n) {
+		return (parseInt(n, 10) < 10 ? '0' : '') + n;
+	}
+};
 
 app()
 
