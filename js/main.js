@@ -4,7 +4,7 @@ const play = document.querySelector('.play');
 const outline = document.querySelector('.moving_outline circle');
 const timeDisplay = document.getElementById('time_display');
 const timeSelectBtn = document.querySelector('.time_select');
-const sounds = document.querySelector('.sound_picker');
+const soundsBtn = document.querySelector('.sound_picker');
 const outlineLength = outline.getTotalLength();
 
 let fakeDuration = 600;
@@ -12,42 +12,13 @@ let fakeDuration = 600;
 outline.style.strokeDasharray = outlineLength;
 outline.style.strokeDashoffset = outlineLength;
 
-function app () {
+function app() {
 
-	play.addEventListener('click', () => {
-		checkPlaying();
-	});
-
-	// Make btn for style song and video
-	function changeStyleSong(e) {
-		if (e.target.closest('.sound_btn')) {
-			song.src = e.target.parentNode.getAttribute('data-sound');
-			video.src = e.target.parentNode.getAttribute('data-video');
-			checkPlaying();
-		}
-	}
-
-	sounds.addEventListener('click', changeStyleSong)
-
-	// Make btn for long time song 
-
-	function setLongTimeSongBtn(e) {
-		if (e.target.closest('button')) {
-			fakeDuration = e.target.getAttribute('data-time');
-			pauseVideo()
-			song.currentTime = 0;
-			timeDisplay.textContent = getTimeString(0);
-		}
-	}
-
-	timeSelectBtn.addEventListener('click', setLongTimeSongBtn)
-
-	// Make play btm
 	function checkPlaying() {
 		if (song.paused) {
-			playVideo()
+			playVideo();
 		} else {
-			pauseVideo()
+			pauseVideo();
 		};
 	};
 
@@ -63,15 +34,37 @@ function app () {
 		play.src = "./svg/play.svg";
 	}
 
-	// Make timer for song and svg 
+	play.addEventListener('click', checkPlaying);
+
+	function changeStyleSong(e) {
+		if (e.target.closest('.sound_btn')) {
+			song.src = e.target.parentNode.getAttribute('data-sound');
+			video.src = e.target.parentNode.getAttribute('data-video');
+			checkPlaying();
+		}
+	}
+
+	soundsBtn.addEventListener('click', changeStyleSong);
+
+	function setLongTimeSongBtn(e) {
+		if (e.target.closest('button')) {
+			fakeDuration = e.target.getAttribute('data-time');
+			pauseVideo();
+			song.currentTime = 0;
+			timeDisplay.textContent = getTimeString(0);
+		}
+	}
+
+	timeSelectBtn.addEventListener('click', setLongTimeSongBtn);
+
 	song.ontimeupdate = () => {
 		let currentTime = song.currentTime;
 		let progress = getProgress(currentTime);
 		outline.style.strokeDashoffset = progress;
-		timeDisplay.textContent = getTimeString(currentTime)
+		timeDisplay.textContent = getTimeString(currentTime);
 		if (currentTime >= fakeDuration) {
 			song.currentTime = 0;
-			pauseVideo()
+			pauseVideo();
 		}
 	};
 
@@ -91,7 +84,7 @@ function app () {
 	}
 };
 
-app()
+app();
 
 
 
